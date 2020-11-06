@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<p>
+    <h1>Die Blockchain</h1>
+    <h2>Jeder Kasten repräsentiert einen Block der Blockchain. Klicke ihn an, um Informationen über die gespeicherten Transaktionen zu erhalten.</h2>
+</p>
+
+<p class="blockInfo">
+   <div class="columns is-mobile">
+        {% for block in chain %}
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    Block {{block.number}}
+                </div>
+                <div class="card-content">
+                    {{block.hash}}
+                </div>
+                <div class="card-content">
+                    {{block.previousHash}}
+                </div>
+                <div class="card-content">
+                    {{block.timestamp}}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</p>
+
+<p>
+    <h1>Transaktionen in Block {{block.number}}</h1>
+</p>
+
+<p class="transactionInfo">
+    <table>
+        {% for transaction in block.transactions %}
+        <tr>
+            <td>
+                {{transaction.from}}
+            </td>
+            <td>
+                {{transaction.to}}
+            </td>
+            <td>
+                {{transaction.amount}}
+            </td>
+            <td>
+                {{transaction.timestamp}}
+            </td>
+            <td>
+                {{transaction.valid}}
+            </td>
+        </tr> 
+        {% endfor %}
+    </table>
+</p>
+{% endblock %}

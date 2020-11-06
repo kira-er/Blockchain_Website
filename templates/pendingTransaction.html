@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<p>
+    <h1>Ausstehende Transaktionen</h1>
+    <h2>Diese Transaktionen werden im nächsten Block enthalten sein, der erstellt wird, wenn Du den Minder startest</h2>
+</p>
+
+<p class="transactionInfo">
+    <table>
+        {% for transaction in block.transactions %}
+        <tr>
+            <td>
+                {{transaction.from}}
+            </td>
+            <td>
+                {{transaction.to}}
+            </td>
+            <td>
+                {{transaction.amount}}
+            </td>
+            <td>
+                {{transaction.timestamp}}
+            </td>
+            <td>
+                {{transaction.valid}}
+            </td>
+        </tr> 
+        {% endfor %}
+    </table>
+</p>
+
+<p>
+    <a class="button is-link">Miner starten</a>
+</p>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{{ title }} | Cryptocoin </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+ 
+
+        <link rel="stylesheet" href="/css/bulma/css/bulma.css" />
+        
+
+
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            <img class="logo" src="/img/logo.png" alt="Cryptocoin" />
+
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/">Startseite</a>
+                    </li>
+                    <li>
+                        <a href="/transaction/">Transaktion erstellen</a>
+                    </li>
+                    <li>
+                        <a href="/pendingTransaction/">Ausstehende Transaktionen</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {% block main %}
+            {% endblock %}
+        </main>
+    </body>
+</html>
