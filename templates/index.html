@@ -3,8 +3,8 @@
 {% block main %}
 
 <p>
-    <h1>Die Blockchain</h1>
-    <h2>Jeder Kasten repräsentiert einen Block der Blockchain. Klicke ihn an, um Informationen über die gespeicherten Transaktionen zu erhalten.</h2>
+    <h1 class="title">Die Blockchain </h1>
+    <h2 class="subtitle">Jeder Kasten repräsentiert einen Block der Blockchain. Klicke ihn an, um Informationen über die gespeicherten Transaktionen zu erhalten.</h2>
 </p>
 
 <p class="blockInfo">
@@ -13,16 +13,16 @@
         <div class="column">
             <div class="card">
                 <div class="card-header">
-                    Block {{block.number}}
+                    Block <br> {{block.number}}
                 </div>
                 <div class="card-content">
-                    {{block.hash}}
+                    Hash <br> {{block.hash}}
                 </div>
                 <div class="card-content">
-                    {{block.previousHash}}
+                    Previous Hash {{block.previousHash}}
                 </div>
                 <div class="card-content">
-                    {{block.timestamp}}
+                    Timestamp {{block.timestamp}}
                 </div>
             </div>
         </div>
@@ -31,12 +31,12 @@
 </p>
 
 <p>
-    <h1>Transaktionen in Block {{block.number}}</h1>
+    <h1>Transaktionen in Block {{chain[index].number}}</h1>
 </p>
 
 <p class="transactionInfo">
     <table>
-        {% for transaction in block.transactions %}
+        {% for transaction in chain[index].transactions %}
         <tr>
             <td>
                 {{transaction.from}}
