@@ -1,12 +1,4 @@
-/*
- * mobidict (https://www.wpvs.de)
- * © 2020 Dennis Schulmeister-Zimolong <dennis@wpvs.de>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- */
+
 const {Blockchain, Transaction} = require('./blockchain');
 const express = require("express");
 const expressNunjucks = require("express-nunjucks");
@@ -55,8 +47,9 @@ let blockchain = new Blockchain();
  * =============================================================================*/
 
 // Endpunkt für die Startseite definieren
+
+//index
 app.get("/", (request, response) => {
-    // Wörterbuch durchsuchen
     let context = {
         title: "Startseite",
         chain: blockchain.chain,
@@ -67,6 +60,26 @@ app.get("/", (request, response) => {
         context.index = request.query.q;
     }
     response.render("index", context);
+});
+
+//createTransaction
+app.get("/createTransaction/", (request, response) => {
+    let context = {
+        title: "Transaktion erstellen",
+        chain: blockchain.chain,
+        index: 0    
+    }
+    response.render("transaction", context);
+});
+
+//pendingTransaction
+app.get("/pendingTransaction/", (request, response) => {
+    let context = {
+        title: "Ausstehende Transaktionen",
+        chain: blockchain.chain,
+        index: 0    
+    }
+    response.render("pendingTransaction", context);
 });
 
 // Endpunkt für die About-Seite definieren
