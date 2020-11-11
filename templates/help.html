@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block main %}
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Das Mysterium Blockchain</h1> 
+        <h2 class="subtitle">Erklärt in einer Webanwendung</h2> <br>
+    </div>
+
+    <div class="container">
+        Durch das Aufkommen von Kryptowährungen erfuhr die Blockchain einen nie dagewesenen Hype - wurde regelrecht als Allheilsbringer angepriesen.
+        Durch die Verknüpfung einzelner Blocke mit Informationen - in diesem Fall Geldtransaktionen - mit einem Hash gilt sie als nahezu unmanipulierbar. 
+        Der Hash eines neuen Blocks, den man sich als Fingerabdruck vorstellen kann, wird von einem sogenannten Miner kalkuliert, der dann berechtigt ist, den neuen Block mit den 
+        enthaltenen Informationen zu bestellen. <br> <br>
+
+        Die gesamte Thematik wird unter anderem in dem Artikel <a href="https://blockchainwelt.de/blockchain-was-ist-das/">"Was ist Blockchain"</a> verständlich erklärt. <br> <br>
+
+        In der Anwendung wird die grundlegende Funktionsweise einer Blockchain dargestellt. Auf der <a href="/">Startseite</a> sind die einzelnen bereits bestehenden 
+        Blöcke sowie die enthaltenen Informationen des jeweils ausgewählten Blocks zu sehen. Unter dem Reiter <a href="/createTransaction">"Transaktion erstellen"</a>
+        kann ein Geldbetrag an eine Adresse versendet werden. Diese Transaktion ist anschließend in den <a href="/pendingTransaction">Ausstehende Transaktionen</a>
+        zu finden. Durch Starten des Mining-Prozesses wird ein neuer Block mit den ausstehenden Transaktionen erstellt, wobei der Miner, in diesem Fall der Benutzer, einen "Reward" (100 GE) erhält.
+        Diese Belohnung wird in den ausstehenden Transaktionen vermerkt, sodass der Minder mit dem nächsten erstellten Block seine Belohnung erhält. Durch klicken auf eine entsprechende 
+        Adresse eines Benutzers, der beispielsweise Geld erhalten hat, wird dessen "Kontostand" angezeigt. Der eigenen Kontostand kann auch unter <a href="/balance">Kontostand</a>
+        eingesehen werden. 
+    </div>
+</section>
+
+{% endblock %}
+
+
+
+
+

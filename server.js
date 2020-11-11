@@ -12,7 +12,6 @@ const ec = new EC('secp256k1');
 
 // Auslesen der Umgebungsvariablen zur Konfiguration des Servers
 const config = {
-  
     port:      parseInt(process.env.PORT) || 8888,
     host:      process.env.HOST           || "localhost",
 };
@@ -99,7 +98,7 @@ app.get("/pendingTransaction", (request, response) => {
     response.render("pendingTransaction", context);
 });
 
-app.get("/mineBlock", (request, response) => {
+app.get("/mineBlock", (response) => {
     blockchain.minePendingTransaction(myWalletAddress);
 
     response.redirect("/?q="+(blockchain.chain.length-1));
@@ -120,6 +119,14 @@ app.get("/balance", (request, response) => {
     response.render("balance", context);
 });
 
+app.get("/help", (request, response) => {
+    let context = {
+        title: "Hilfe"
+    }
+    response.render("help", context);
+});
+
+
 /* =============================================================================
  * SERVER STARTEN
  * =============================================================================*/
@@ -127,14 +134,4 @@ app.listen(config.port, config.host, () => {
     console.log("=======================");
     console.log("blockchain node.js server");
     console.log("=======================");
-    console.log();
-    console.log("Ausführung mit folgender Konfiguration:");
-    console.log();
-    console.log(config);
-    console.log();
-    console.log("Nutzen Sie die folgenden Umgebungsvariablen zum Anpassen der Konfiguration:");
-    console.log();
-    console.log("  » PORT:       TCP-Port, auf dem der Webserver erreichbar ist");
-    console.log("  » HOST:       Hostname oder IP-Addresse, auf welcher der Webserver erreichbar ist");
-    console.log();
 });
