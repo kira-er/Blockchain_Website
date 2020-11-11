@@ -24,14 +24,13 @@
                 // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
                 $(".navbar-burger").toggleClass("is-active");
                 $(".navbar-menu").toggleClass("is-active");
-
-});
-})
+            });
+            })
         </script>
     </head
     >
     <body>
-        <nav class="navbar">
+        <nav class="navbar is-primary">
             <div class="navbar-brand">
                  <a class="navbar-item" href="/"> <img class="image is-96x96" src="/img/logo.png" alt="Cryptocoin" /> </a>
                  <a role="button" class="navbar-burger burger"  aria-label="menu" aria-expanded="false" data-target="navbar_target">
@@ -50,9 +49,8 @@
                   
                </div> 
         </nav>
-        <main>
-            {% block main %}
-            {% endblock %}
-        </main>
-    </body>
+        
+        {% block main %}
+        {% endblock %}
+</body>
 </html>

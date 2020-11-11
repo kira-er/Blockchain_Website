@@ -41,7 +41,8 @@ expressNunjucks(app, {
 /*=======================================================*/
 
 let blockchain = new Blockchain();
-
+blockchain.minePendingTransaction("miner-address");
+blockchain.minePendingTransaction("miner2-address");
 /* =============================================================================
  * DEFINITION DER URL-ROUTEN UND BEARBEITUNG DER HTTP-ANFRAGEN
  * =============================================================================*/
@@ -53,7 +54,7 @@ app.get("/", (request, response) => {
     let context = {
         title: "Startseite",
         chain: blockchain.chain,
-        index: 0    
+        index: 1
     }
 
     if (request.query.q) {
@@ -76,8 +77,7 @@ app.get("/createTransaction/", (request, response) => {
 app.get("/pendingTransaction/", (request, response) => {
     let context = {
         title: "Ausstehende Transaktionen",
-        chain: blockchain.chain,
-        index: 0    
+        transactions: blockchain.pendingTransaction
     }
     response.render("pendingTransaction", context);
 });

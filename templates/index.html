@@ -2,59 +2,65 @@
 
 {% block main %}
 
-<p>
-    <h1 class="title">Die Blockchain </h1>
-    <h2 class="subtitle">Jeder Kasten repräsentiert einen Block der Blockchain. Klicke ihn an, um Informationen über die gespeicherten Transaktionen zu erhalten.</h2>
-</p>
+<section class="section">
+<div class="container">
+<h1 class="title">Die Blockchain </h1>
+<h2 class="subtitle">Jeder Kasten repräsentiert einen Block der Blockchain. Klicke ihn an, um Informationen über die gespeicherten Transaktionen zu erhalten.</h2>
 
-<p class="blockInfo">
-   <div class="columns is-mobile">
-        {% for block in chain %}
-        <div class="column">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="subtitle">Block</h3> <br> {{block.number}}
-                </div>
-                <div class="card-content">
-                    <h3 class="subtitle">Hash</h3> <br> {{block.hash}}
-                </div>
-                <div class="card-content">
-                    <h3 class="subtile">Previous Hash</h3> {{block.previousHash}}
-                </div>
-                <div class="card-content">
-                    <h3 class="subtitle">Timestamp</h3> {{block.timestamp}}
-                </div>
+<div class="columns is-multiline">
+    {% for block in chain %}
+    <div class="column">
+        <div class="card is-clickable {% if loop.index-1 == index %}has-background-primary{% else %}has-background-grey-lighter{% endif %}">
+            <div class="card-header">
+                <p class="card-header-title">Block {{block.number}}</p>
+            </div>
+            <div class="card-content">
+                <p class="is-size-5">Hash</p> <blockquote class="is-size-6">{{block.hash}}</blockquote>
+                <hr>
+                <p class="is-size-5">Previous Hash</p> <blockquote>{{block.previousHash}}</blockquote>
+                <hr>
+                <p class="is-size-5">Timestamp</p> <blockquote>{{block.timestamp}}</blockquote>
             </div>
         </div>
-        {% endfor %}
     </div>
-</p>
+    {% endfor %}
+</div>
+</div>
+</section>
 
-<p>
-    <h1>Transaktionen in Block {{chain[index].number}}</h1>
-</p>
+<section class="section">
+<div class="container">
+<h1 class="title">Transaktionen in Block {{chain[index].number}}</h1>
 
-<p class="transactionInfo">
-    <table>
-        {% for transaction in chain[index].transactions %}
-        <tr>
-            <td>
-                {{transaction.from}}
-            </td>
-            <td>
-                {{transaction.to}}
-            </td>
-            <td>
-                {{transaction.amount}}
-            </td>
-            <td>
-                {{transaction.timestamp}}
-            </td>
-            <td>
-                {{transaction.valid}}
-            </td>
-        </tr> 
-        {% endfor %}
-    </table>
-</p>
+
+<table class="table">
+<thead>
+<tr>
+<th><abbr title="Origin Adress">From</abbr></th>
+<th><abbr title="Target Adress">To</abbr></th>
+<th>Amount</th>
+<th>Valid</th>
+</tr>
+</thead>
+<tbody>
+    {% for transaction in chain[index].transactions %}
+    <tr>
+        <td>
+            {{transaction.fromAddress}}
+        </td>
+        <td>
+            {{transaction.toAddress}}
+        </td>
+        <td>
+            {{transaction.amount}}
+        </td>
+        <td>
+            {{transaction.valid}}
+        </td>
+    </tr> 
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+</section>
 {% endblock %}

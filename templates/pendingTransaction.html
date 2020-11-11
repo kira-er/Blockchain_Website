@@ -2,36 +2,37 @@
 
 {% block main %}
 
-<p>
-    <h1>Ausstehende Transaktionen</h1>
-    <h2>Diese Transaktionen werden im nächsten Block enthalten sein, der erstellt wird, wenn Du den Minder startest</h2>
-</p>
+<h1 class="title is-2">Ausstehende Transaktionen</h1>
+<h2 class="subtitle is-5">Diese Transaktionen werden im nächsten Block enthalten sein, der erstellt wird, wenn Du den Minder startest</h2>
 
-<p class="transactionInfo">
-    <table>
-        {% for transaction in block.transactions %}
-        <tr>
-            <td>
-                {{transaction.from}}
-            </td>
-            <td>
-                {{transaction.to}}
-            </td>
-            <td>
-                {{transaction.amount}}
-            </td>
-            <td>
-                {{transaction.timestamp}}
-            </td>
-            <td>
-                {{transaction.valid}}
-            </td>
-        </tr> 
-        {% endfor %}
-    </table>
-</p>
+<table class="table">
+<thead>
+<tr>
+<th><abbr title="Origin Adress">From</abbr></th>
+<th><abbr title="Target Adress">To</abbr></th>
+<th>Amount</th>
+<th>Valid</th>
+</tr>
+</thead>
+<tbody>
+    {% for transaction in transactions %}
+    <tr>
+        <td>
+            {{transaction.fromAddress}}
+        </td>
+        <td>
+            {{transaction.toAddress}}
+        </td>
+        <td>
+            {{transaction.amount}}
+        </td>
+        <td>
+            {{transaction.valid}}
+        </td>
+    </tr> 
+    {% endfor %}
+    </tbody>
+</table>
 
-<p>
-    <a class="button is-link">Miner starten</a>
-</p>
+<a class="button is-link">Miner starten</a>
 {% endblock %}
