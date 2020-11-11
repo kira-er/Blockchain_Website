@@ -6,7 +6,7 @@ class Transaction {
     constructor (fromAddress, toAddress, amount) {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
-        this.amount = amount;
+        this.amount = +amount;
     }
 
     calculateHash() {
@@ -76,7 +76,10 @@ class Blockchain{
     }
 
     createGenesisBlock(){
-        return new Block("10/09/2019", [], "None");
+        let dateNow = Date.now();
+        let date = new Date(dateNow);
+        let currentDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+        return new Block(currentDate, [], "None");
     }
 
     getLatestBlock() {
@@ -92,7 +95,7 @@ class Blockchain{
         console.log("Block successfully mined");
         this.chain.push(block);
 
-        this.pendingTransaction = [ new Transaction("None", miningRewardAddress, this.miningReward) ];
+        this.pendingTransaction = [ new Transaction("Mining Process", miningRewardAddress, this.miningReward) ];
     }
 
     createTransaction(transaction) {

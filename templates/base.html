@@ -32,7 +32,11 @@
     <body>
         <nav class="navbar is-primary">
             <div class="navbar-brand">
-                 <a class="navbar-item" href="/"> <img class="image is-96x96" src="/img/logo.png" alt="Cryptocoin" /> </a>
+                 <a href="/">
+                    <figure class="image is-96x96">
+                        <img src="/img/logo.png">
+                      </figure>
+                </a>
                  <a role="button" class="navbar-burger burger"  aria-label="menu" aria-expanded="false" data-target="navbar_target">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -43,12 +47,19 @@
                <div class="navbar-menu" id="navbar_target">
                    <div class="navbar-start">
                         <a href="/" class="navbar-item">Startseite</a>
-                        <a href="/createTransaction/" class="navbar-item">Transaktion erstellen</a>
-                        <a href="/pendingTransaction/" class="navbar-item">Ausstehende Transaktionen</a>
+                        <a href="/createTransaction" class="navbar-item">Transaktion erstellen</a>
+                        <a href="/pendingTransaction" class="navbar-item">Ausstehende Transaktionen</a>
+                        <a href="/balance" class="navbar-item">Kontostand</a>
                    </div>
                   
                </div> 
         </nav>
+
+        {% if error %}
+            <div class="notification is-danger">
+                {{error}}
+            </div>
+        {% endif %}
         
         {% block main %}
         {% endblock %}

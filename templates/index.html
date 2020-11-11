@@ -6,18 +6,19 @@
 <div class="container">
 <h1 class="title">Die Blockchain </h1>
 <h2 class="subtitle">Jeder Kasten repräsentiert einen Block der Blockchain. Klicke ihn an, um Informationen über die gespeicherten Transaktionen zu erhalten.</h2>
+<hr>
 
 <div class="columns is-multiline">
     {% for block in chain %}
     <div class="column">
-        <div class="card is-clickable {% if loop.index-1 == index %}has-background-primary{% else %}has-background-grey-lighter{% endif %}">
+        <div class="card is-clickable {% if loop.index-1 == index %}has-background-primary{% else %}has-background-grey-lighter{% endif %}" onclick="window.location = window.location.pathname+'?q={{loop.index-1}}'">
             <div class="card-header">
-                <p class="card-header-title">Block {{block.number}}</p>
+                <p class="card-header-title">Block {{loop.index-1}}{% if loop.index-1 == 0 %} (Genisis Block){% endif %}</p>
             </div>
             <div class="card-content">
-                <p class="is-size-5">Hash</p> <blockquote class="is-size-6">{{block.hash}}</blockquote>
+                <p class="is-size-5">Hash</p> <blockquote class="is-size-6">{{block.hash  | truncate(30)}}</blockquote>
                 <hr>
-                <p class="is-size-5">Previous Hash</p> <blockquote>{{block.previousHash}}</blockquote>
+                <p class="is-size-5">Previous Hash</p> <blockquote>{{block.previousHash  | truncate(30)}}</blockquote>
                 <hr>
                 <p class="is-size-5">Timestamp</p> <blockquote>{{block.timestamp}}</blockquote>
             </div>
@@ -30,34 +31,36 @@
 
 <section class="section">
 <div class="container">
-<h1 class="title">Transaktionen in Block {{chain[index].number}}</h1>
-
+<h1 class="title">Transaktionen in Block {{index}}{% if index == 0 %} (Genisis Block){% endif %}</h1>
+<hr>
 
 <table class="table">
 <thead>
 <tr>
-<th><abbr title="Origin Adress">From</abbr></th>
-<th><abbr title="Target Adress">To</abbr></th>
-<th>Amount</th>
-<th>Valid</th>
+    <th>Absender</th>
+    <th>Empfänger</th>
+    <th>Wert</th>
 </tr>
 </thead>
 <tbody>
     {% for transaction in chain[index].transactions %}
     <tr>
         <td>
-            {{transaction.fromAddress}}
+            <a style="word-wrap: anywhere;" href="/balance?address={{transaction.fromAddress}}">{{transaction.fromAddress | truncate(20)}}</a>
         </td>
         <td>
-            {{transaction.toAddress}}
+            <a style="word-wrap: anywhere;" href="/balance?address={{transaction.toAddress}}">{{transaction.toAddress | truncate(20)}}</a>
         </td>
         <td>
             {{transaction.amount}}
         </td>
-        <td>
-            {{transaction.valid}}
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="3">
+            Keine Transaktionen im Block
         </td>
-    </tr> 
+    </tr>
     {% endfor %}
     </tbody>
 </table>

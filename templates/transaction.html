@@ -1,28 +1,33 @@
 {% extends "base.html" %}
 
 {% block main %}
-<p>
-    <h1>Transaktion erstellen</h1>
-    <h2>Hier kannst du Geld an deine Freunde senden</h2>
-</p>
-<form>
-    <p class="from">
-        <div>Senderadresse</div>
-        <input/>
-        <div>Dies ist die Adresse zu deinem Geldbeutel. Du kannst sie nicht änder, sonst könntest Du ja das Geld anderer Leute ausgeben!</div>
-    </p>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Transaktion erstellen</h1>
+        <h2 class="subtitle">Hier kannst du Geld an deine Freunde senden</h2>
+        <hr>
+    <form>
+        
+        <div class="block"><b>Senderadresse</b>
+        <input class="input is-primary" type="text" disabled="true" value="{{myAddress}}"/>
+        <div>Dies ist die Adresse zu deinem Geldbeutel. Du kannst sie nicht ändern, sonst könntest Du ja das Geld anderer Leute ausgeben!</div>
+        </div>
 
-    <p class="to">
-        <div>Empfängeradresse</div>
-        <input class="input is-primary" type="text" placeholder="Empfängeradresse"/>
+    
+        <div class="block"><b>Empfängeradresse</b>
+        <input class="input is-primary" type="text" name="to" placeholder="Empfängeradresse" value="{{to}}"/>
         <div>Trage hier den Empfänger ein, der deine Überweisung enthalten soll. (Du kannst hier einen beliebigen Text eingeben)</div>
-    </p>
-    <p class="amount">
-        <div>Betrag</div>
-        <input class="input is-primary" type="text" placeholder="Betrag"/>
+    </div>
+    
+        <div class="block"><b>Betrag</b>
+        <input class="input is-primary" type="text" name="amount" placeholder="Betrag" value="{{amount}}"/>
         <div>Trage hier den Betrag ein, den Du überweisen willst</div>
-    </p>
+    </div>
 
-</form>
+        <input class="button is-primary" type="submit" value="Transaktion erstellen"/>
+    </form>
+    </div>
+</section>
+
 
 {% endblock %}

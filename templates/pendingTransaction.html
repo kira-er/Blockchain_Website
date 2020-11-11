@@ -1,38 +1,43 @@
 {% extends "base.html" %}
 
 {% block main %}
-
-<h1 class="title is-2">Ausstehende Transaktionen</h1>
-<h2 class="subtitle is-5">Diese Transaktionen werden im nächsten Block enthalten sein, der erstellt wird, wenn Du den Minder startest</h2>
-
-<table class="table">
-<thead>
-<tr>
-<th><abbr title="Origin Adress">From</abbr></th>
-<th><abbr title="Target Adress">To</abbr></th>
-<th>Amount</th>
-<th>Valid</th>
-</tr>
-</thead>
-<tbody>
-    {% for transaction in transactions %}
-    <tr>
-        <td>
-            {{transaction.fromAddress}}
-        </td>
-        <td>
-            {{transaction.toAddress}}
-        </td>
-        <td>
-            {{transaction.amount}}
-        </td>
-        <td>
-            {{transaction.valid}}
-        </td>
-    </tr> 
-    {% endfor %}
-    </tbody>
-</table>
-
-<a class="button is-link">Miner starten</a>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Ausstehende Transaktionen</h1>
+        <h2 class="subtitle">Diese Transaktionen werden im nächsten Block enthalten sein, der erstellt wird, wenn Du den Miner startest</h2>
+        <hr>
+        <table class="table">
+        <thead>
+        <tr>
+        <th>Absender</th>
+        <th>Empfänger</th>
+        <th>Wert</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>
+                    <a style="word-wrap: anywhere;" href="/balance?address={{transaction.fromAddress}}">{{transaction.fromAddress | truncate(20)}}</a>
+                </td>
+                <td>
+                    <a style="word-wrap: anywhere;" href="/balance?address={{transaction.toAddress}}">{{transaction.toAddress | truncate(20)}}</a>
+                </td>
+                <td>
+                    {{transaction.amount}}
+                </td>
+            </tr> 
+            {% else %}
+            <tr>
+                <td colspan="3">
+                    Keine ausstehenden Transaktionen vorhanden
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+        <a class="button is-primary" href="/mineBlock/">Miner starten</a>
+    </div>
+</section>
 {% endblock %}

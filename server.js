@@ -1,8 +1,9 @@
-
 const {Blockchain, Transaction} = require('./blockchain');
 const express = require("express");
 const expressNunjucks = require("express-nunjucks");
 const path = require("path");
+const EC = require('elliptic').ec;
+const ec = new EC('secp256k1');
 
 
 /* =============================================================================
@@ -41,8 +42,9 @@ expressNunjucks(app, {
 /*=======================================================*/
 
 let blockchain = new Blockchain();
-blockchain.minePendingTransaction("miner-address");
-blockchain.minePendingTransaction("miner2-address");
+const myKey = ec.keyFromPrivate('1b6dd5fae6e37cf16a9fc305f0f62c8e55e7f7e765fc8bad4b7c9665c2c6e9b6');
+const myWalletAddress = myKey.getPublic('hex');
+
 /* =============================================================================
  * DEFINITION DER URL-ROUTEN UND BEARBEITUNG DER HTTP-ANFRAGEN
  * =============================================================================*/
@@ -54,7 +56,7 @@ app.get("/", (request, response) => {
     let context = {
         title: "Startseite",
         chain: blockchain.chain,
-        index: 1
+        index: 0
     }
 
     if (request.query.q) {
@@ -64,17 +66,32 @@ app.get("/", (request, response) => {
 });
 
 //createTransaction
-app.get("/createTransaction/", (request, response) => {
+app.get("/createTransaction", (request, response) => {
+    let error = null;
+    if(request.query.to != null && request.query.amount != null){
+        if(request.query.to != "" && request.query.amount != "" && !isNaN(request.query.amount) && +request.query.amount > 0){
+            let tx = new Transaction(myWalletAddress, request.query.to, request.query.amount);
+            tx.signTransaction(myKey);
+            blockchain.createTransaction(tx);
+
+            response.redirect("/pendingTransaction");
+            return;
+        }
+        error = "Adress or Amount invalid!";
+    }
     let context = {
         title: "Transaktion erstellen",
-        chain: blockchain.chain,
-        index: 0    
+        myAddress: myWalletAddress,
+        to: request.query.to,
+        amount: request.query.amount,
+        error: error
     }
     response.render("transaction", context);
+    
 });
 
 //pendingTransaction
-app.get("/pendingTransaction/", (request, response) => {
+app.get("/pendingTransaction", (request, response) => {
     let context = {
         title: "Ausstehende Transaktionen",
         transactions: blockchain.pendingTransaction
@@ -82,20 +99,33 @@ app.get("/pendingTransaction/", (request, response) => {
     response.render("pendingTransaction", context);
 });
 
-// Endpunkt für die About-Seite definieren
-app.get("/about/", (request, response) => {
-    response.render("about", {
-        title: "Über uns",
-    });
+app.get("/mineBlock", (request, response) => {
+    blockchain.minePendingTransaction(myWalletAddress);
+
+    response.redirect("/?q="+(blockchain.chain.length-1));
 });
 
+app.get("/balance", (request, response) => {
+    let address = myWalletAddress;
+    if(request.query.address){
+        address = request.query.address;
+    }
+
+    let context = {
+        title: "Account",
+        address: address,
+        balance: blockchain.getBalanceOfAddress(address)
+    }
+
+    response.render("balance", context);
+});
 
 /* =============================================================================
  * SERVER STARTEN
  * =============================================================================*/
 app.listen(config.port, config.host, () => {
     console.log("=======================");
-    console.log("mobidict node.js server");
+    console.log("blockchain node.js server");
     console.log("=======================");
     console.log();
     console.log("Ausführung mit folgender Konfiguration:");
@@ -104,7 +134,6 @@ app.listen(config.port, config.host, () => {
     console.log();
     console.log("Nutzen Sie die folgenden Umgebungsvariablen zum Anpassen der Konfiguration:");
     console.log();
-    console.log("  » DICT_FILE:  Pfad und Dateiname der Wörterbuchdatei (Plain-Text-Format)");
     console.log("  » PORT:       TCP-Port, auf dem der Webserver erreichbar ist");
     console.log("  » HOST:       Hostname oder IP-Addresse, auf welcher der Webserver erreichbar ist");
     console.log();
