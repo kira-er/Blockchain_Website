@@ -11,7 +11,7 @@
         Durch das Aufkommen von Kryptowährungen erfuhr die Blockchain einen nie dagewesenen Hype - wurde regelrecht als Allheilsbringer angepriesen.
         Durch die Verknüpfung einzelner Blocke mit Informationen - in diesem Fall Geldtransaktionen - mit einem Hash gilt sie als nahezu unmanipulierbar. 
         Der Hash eines neuen Blocks, den man sich als Fingerabdruck vorstellen kann, wird von einem sogenannten Miner kalkuliert, der dann berechtigt ist, den neuen Block mit den 
-        enthaltenen Informationen zu bestellen. <br> <br>
+        enthaltenen Informationen zu bestellen. <br> <br> 
 
         Die gesamte Thematik wird unter anderem in dem Artikel <a href="https://blockchainwelt.de/blockchain-was-ist-das/">"Was ist Blockchain"</a> verständlich erklärt. <br> <br>
 
@@ -21,7 +21,17 @@
         zu finden. Durch Starten des Mining-Prozesses wird ein neuer Block mit den ausstehenden Transaktionen erstellt, wobei der Miner, in diesem Fall der Benutzer, einen "Reward" (100 GE) erhält.
         Diese Belohnung wird in den ausstehenden Transaktionen vermerkt, sodass der Minder mit dem nächsten erstellten Block seine Belohnung erhält. Durch klicken auf eine entsprechende 
         Adresse eines Benutzers, der beispielsweise Geld erhalten hat, wird dessen "Kontostand" angezeigt. Der eigenen Kontostand kann auch unter <a href="/balance">Kontostand</a>
-        eingesehen werden. 
+        eingesehen werden. <br> <br>
+        
+        Bei dieser Anwenung handelt es sich natürlich lediglich um eine Simulation einer Blockchain, die jedoch, wenn man sie in ein entsprechendes Netzwerk von Minern und Benutzern 
+        einbinden würde, in ihren Funktionen einer realen Blockchain vergleichsweise ähnlich wäre. So ist der Mining-Prozess in der Realität eher ein Wettbewerb zwischen verschiedenen Minern. 
+        Wer die Aufgabe, nämlich die Berechnung des Hashes zuerst löst, darf einen Vorschlag über die im neuen Block enthaltenen Transaktionen machen. Stimmt die Mehrheit der Miner diesem
+        Vorschlag zu, so darf der Minder den neuen Block erstellen. Das Konzept der Zustimmung anderer Miner konnte in dieser kleinen Blockchain leider nicht umgesetzt werden, da schlicht und
+        ergreifend die anderen Minder fehlen. Auch der Prozess der Erstellung eines neuen Blocks dauert in der Realität länger, bei Bitcoin - einer der wohl bekanntesten Kryptowährungen, die auf
+        einer Blockchain basieren, ungefähr 10 Minuten. Da die Leistung der Miner sich mit der Zeit verbessert, die Dauer zwischen dem Minen von zwei Blöcken jedoch konstant bleiben soll,
+        wird die Mining-Dauer zusätzlich durch einen weiteren Parameter, die "Difficulty", beeinflusst. Diese Difficulty wird in dieser Blockchain in der Datei blockchain.js in Zeile 73 gesetzt. 
+        Verändert man den exemplarisch auf 2 gesetzten Wert nur ein klein wenig, verändert man ihn beispielsweise auf den Wert 5, wird der Prozess spürbar länger dauern. So wäre es allein durch
+        Verändern der Difficulty ohne Probleme möglich, einen Mining-Prozess mit einer Dauer von mehreren Minuten zu simulieren. 
     </div>
 </section>
 

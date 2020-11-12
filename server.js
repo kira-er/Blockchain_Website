@@ -98,12 +98,14 @@ app.get("/pendingTransaction", (request, response) => {
     response.render("pendingTransaction", context);
 });
 
-app.get("/mineBlock", (response) => {
+//miner
+app.get("/mineBlock", (request, response) => {
     blockchain.minePendingTransaction(myWalletAddress);
 
     response.redirect("/?q="+(blockchain.chain.length-1));
 });
 
+//balance
 app.get("/balance", (request, response) => {
     let address = myWalletAddress;
     if(request.query.address){
@@ -119,6 +121,8 @@ app.get("/balance", (request, response) => {
     response.render("balance", context);
 });
 
+
+//help
 app.get("/help", (request, response) => {
     let context = {
         title: "Hilfe"
@@ -134,4 +138,8 @@ app.listen(config.port, config.host, () => {
     console.log("=======================");
     console.log("blockchain node.js server");
     console.log("=======================");
+    console.log();  
+    console.log("Erreichbar unter: ")
+    console.log(config);
+    console.log();
 });
